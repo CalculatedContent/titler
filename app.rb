@@ -4,8 +4,15 @@ require 'sinatra'
 
 
 configure do
-  REDIs = Redis.new
+  REDIS = Redis.new
 end
+
+
+get '/hello' do
+  REDIS['hello']='hi ya from redis'
+  REDIS['hello']
+end
+
 
 get "/" do
   "Calculated Content Titler"
