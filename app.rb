@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 require 'rubygems'
 require 'sinatra'
+require 'redis'
 
 
 configure do
