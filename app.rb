@@ -19,5 +19,13 @@ get "/" do
   "Calculated Content Titler"
 end
 
+get "/score" do
+  tweet = params[:tweet]
+  "the tweet to score is #{tweet}"
+end
+
+
+# http://xxx.xxx.xxx.xx:3456/score?="this is a tweet"
+
 
 
