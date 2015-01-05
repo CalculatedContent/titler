@@ -1,0 +1,38 @@
+<html>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js" ></script>
+<body>
+
+<style>
+  #sweet {
+    width: 300px;
+  }
+</style>
+
+
+<p>Type a tweet to have it scored</p>
+<form id="sweetform">
+  <div>
+    <input type="text" id="sweet">
+  </div>
+</form>
+
+<script>
+$( "#sweetform" ).submit(function( event ) {
+
+  $.get("/score?tweet="+$( "input:first" ).val(), function(data){
+    $( "#sweet" ).val(data);
+  });
+
+  event.preventDefault();
+});
+</script>
+
+
+
+<script>
+$.get('/score?tweet=hi',function(data){$('#sweet').val(data);})
+</script>
+
+
+</body>
+</html>
