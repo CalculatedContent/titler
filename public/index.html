@@ -5,6 +5,7 @@
 <style>
   #sweet {
     width: 300px;
+    height: 30px;
   }
 
   .good {
@@ -22,6 +23,9 @@
 </style>
 
 
+
+<center>
+<br>
 <p>Type a tweet to have it scored</p>
 <form id="sweetform">
   <div>
@@ -29,32 +33,36 @@
   </div>
 </form>
 <span></span>
+</center>
+
 <script>
 $( "#sweetform" ).submit(function( event ) {
 
-  $.get("/score?tweet="+$( "input:first" ).val(), function(data){
-    $( "#sweet" ).val(data);
-    //temp mock data
-    data={
-      tokens:[
-        {
-          token: 'tweet',
-          score: 0.85
-        },
-        {
-          token: 'score',
-          score: -0.95
-        },
-        {
-          token: 'hi',
-          score: 0.5
-        }
-      ],
-      totalScore: 0.45
-    };
+  $.get("/score?tweet="+$( "input:first" ).val(), function(jsonStr){
+    data = jQuery.parseJSON( jsonStr )
+
+//    $( "#sweet" ).val( data.tokens );
+
+//    //temp mock data
+//   data={
+//     tokens:[
+//       {
+//         token: 'tweet',
+//         score: 0.85
+//       },
+//       {
+//         token: 'score',
+//         score: -0.95
+//       },
+//       {
+//         token: 'hi',
+//         score: 0.5
+//       }
+//     ],
+//     totalScore: 0.45
+//   };
 
     var result="";
-
     $.each(data.tokens, function(index,value){
       console.log(value);
 

@@ -2,7 +2,7 @@
 require 'rubygems'
 require 'sinatra'
 require 'redis'
-
+require 'json'
 
 configure do
   REDIS = Redis.new
@@ -23,7 +23,7 @@ end
 # http://xxx.xxx.xxx.xx:3456/score?="this is a tweet"
 get "/score" do
   tweet = params[:tweet]
-  "the tweet to score is #{tweet}"
+#  "the tweet to score is #{tweet}"
 
   # we just need to load the scores
   #
@@ -36,7 +36,18 @@ get "/score" do
   # norm = vals.to_size.to_f
 
   # score = sum / norm
-  
+
+  result = {}
+  result[:tokens]=[]
+
+  toks = tweet.downcase.split
+  toks.each do |x|
+      result[:tokens] << { :token => x, score: 0.85  }
+  end
+
+  result[:totalScore]=0.59
+
+  return result.to_json
 end
 
 
