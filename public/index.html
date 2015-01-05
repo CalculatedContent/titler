@@ -6,6 +6,19 @@
   #sweet {
     width: 300px;
   }
+
+  .good {
+    color: green ;
+  }
+
+  .bad {
+    color: red ;
+  }
+
+  .ok {
+    color: grey ;
+  }
+
 </style>
 
 
@@ -15,14 +28,56 @@
     <input type="text" id="sweet">
   </div>
 </form>
-
+<span></span>
 <script>
 $( "#sweetform" ).submit(function( event ) {
 
   $.get("/score?tweet="+$( "input:first" ).val(), function(data){
     $( "#sweet" ).val(data);
+    //temp mock data
+    data={
+      tokens:[
+        {
+          token: 'tweet',
+          score: 0.85
+        },
+        {
+          token: 'score',
+          score: -0.95
+        },
+        {
+          token: 'hi',
+          score: 0.5
+        }
+      ],
+      totalScore: 0.45
+    };
+
+    var result="";
+
+    $.each(data.tokens, function(index,value){
+      console.log(value);
+
+      var klass = 'ok';
+      if ( value.score > 0.5 )
+        { klass = 'good'; }
+
+      if ( value.score < -0.5 ) 
+        { klass = 'bad'; }
+
+      result += "<span class='" + klass + "' >" + value.token + "</span> ";
+
+     });
+
+      var klass = 'bad'
+      if (data.totalScore > 0.0 )  { klass = 'good'; } 
+      result += "<span class='" + klass + "' > : "+ data.totalScore + "<span>"			 
+    $( "span" ).html( result );
+    
+    
   });
 
+  
   event.preventDefault();
 });
 </script>
