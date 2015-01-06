@@ -21,21 +21,8 @@ end
 
 
 # http://xxx.xxx.xxx.xx:3456/score?="this is a tweet"
-get "/score" do
+get "/test" do
   tweet = params[:tweet]
-#  "the tweet to score is #{tweet}"
-
-  # we just need to load the scores
-  #
-  # toks = tweet.downcase.split
-  # vals = toks.map { |x|  REDIS["score:#{x}"] }
-  # vals.compact!
-  # vals.map! { |x| x.to_f }
-  
-  # sum = vals.inject{|sum,x| sum + x }
-  # norm = vals.to_size.to_f
-
-  # score = sum / norm
 
   result = {}
   result[:tokens]=[]
@@ -46,6 +33,28 @@ get "/score" do
   end
 
   result[:totalScore]=0.59
+
+  return result.to_json
+end
+
+
+# very crude
+get "/score" do
+  tweet = params[:tweet]
+
+  result = {}
+  result[:tokens]=[]
+
+  sum = 0.0
+  toks = tweet.downcase.split
+  toks.each do |x|  
+    s = REDIS["#{x}"].to_f
+    sum += s 
+    result[:tokens] << { :token => x, score: s  }
+  end
+
+  norm = toks.size.to_f
+  result[:totalScore]= sum / norm
 
   return result.to_json
 end

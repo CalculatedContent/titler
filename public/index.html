@@ -67,10 +67,10 @@ $( "#sweetform" ).submit(function( event ) {
       console.log(value);
 
       var klass = 'ok';
-      if ( value.score > 0.5 )
+      if ( value.score > 0.25 )
         { klass = 'good'; }
 
-      if ( value.score < -0.5 ) 
+      if ( value.score < -0.25 ) 
         { klass = 'bad'; }
 
       result += "<span class='" + klass + "' >" + value.token + "</span> ";
